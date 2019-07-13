@@ -9,7 +9,7 @@ coverage/
 **/*-min.js
 **/*.min.js
 
-templates
-
-# 忽略 packages 部分包
-
+# 有较多的模板（ejs）语法
+packages/ice-react-material-template/template
+packages/ice-vue-material-template/template
+packages/ice-angular-material-template/template

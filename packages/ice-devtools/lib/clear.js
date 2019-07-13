@@ -1,6 +1,6 @@
+const chalk = require('chalk');
 const pkg = require('../utils/pkg-json');
 const token = require('../utils/token');
-const chalk = require('chalk');
 
 module.exports = async function clear(cwd) {
   const pkgJSON = pkg.getPkgJSON(cwd);

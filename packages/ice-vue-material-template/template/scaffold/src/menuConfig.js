@@ -12,7 +12,7 @@ const headerMenuConfig = [
     name: '关于',
     path: '/about',
     icon: 'about',
-  }
+  },
 ];
 
 const asideMenuConfig = [];
