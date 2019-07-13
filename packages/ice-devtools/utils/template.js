@@ -7,13 +7,13 @@ const ora = require('ora');
 const existsSync = require('fs').existsSync;
 const rimraf = require('rimraf');
 const mkdirp = require('mkdirp');
-
-const logger = require('./logger');
-const getPkgJSON = require('./pkg-json').getPkgJSON;
 const {
   getLatestVersion,
   getNpmRegistry,
 } = require('ice-npm-utils');
+
+const logger = require('./logger');
+const getPkgJSON = require('./pkg-json').getPkgJSON;
 
 const Parser = tar.Parse;
 
