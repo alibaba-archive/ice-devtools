@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.1
+- [fix] 修复 screenshot url 取值的优先级 bug
+
 ## 2.4.0
 - [feat] 移除 .template 的设计
 - [refactor] screentshot/homepage 两个字段的生成逻辑优化，截图功能提供单独的 CLI 工具 @ice/screenshot
