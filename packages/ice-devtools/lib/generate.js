@@ -140,7 +140,7 @@ function generateMaterialsData(files, targetDir, type) {
     // 兼容 snapshot 字段
     const screenshot = materialConfig.screenshot
       || materialConfig.snapshot
-      || hasScreenshot(path.dirname(pkgPath)) ? `${unpkgHost}/${pkg.name}@${pkg.version}/screenshot.png` : '';
+      || (hasScreenshot(path.dirname(pkgPath)) ? `${unpkgHost}/${pkg.name}@${pkg.version}/screenshot.png` : '');
 
     const registry =
       (pkg.publishConfig && pkg.publishConfig.registry) ||
