@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.2
+- [fix] 修复 idev 初始化出来的组件模板 package.json 中 componentConfig 中的 name 和 adaptor 中的 name 不一致的 bug
+
 ## 2.4.1
 - [fix] 修复 screenshot url 取值的优先级 bug
 

@@ -9,10 +9,9 @@ export default {
     };
   },
   adaptor: (props) => {
-    const { ...others } = props;
     return (
       // eslint-disable-next-line react/react-in-jsx-scope
-      <MainComponent {...others} />
+      <MainComponent {...props} />
     );
   },
 };
