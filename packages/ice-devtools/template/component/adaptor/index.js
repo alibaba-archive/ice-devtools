@@ -2,7 +2,7 @@ import React from 'react';
 import MainComponent from '../src';
 
 export default {
-  name: '<%= npmName %>', // 组件名称
+  name: '<%= name %>', // 组件名称
   editor: () => {
     return {
       props: [],
