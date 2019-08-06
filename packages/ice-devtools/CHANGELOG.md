@@ -1,12 +1,19 @@
 # Changelog
 
+## 2.4.3
+
+- [fix] 修复阿里内部包未发布的判断逻辑
+
 ## 2.4.2
+
 - [fix] 修复 idev 初始化出来的组件模板 package.json 中 componentConfig 中的 name 和 adaptor 中的 name 不一致的 bug
 
 ## 2.4.1
+
 - [fix] 修复 screenshot url 取值的优先级 bug
 
 ## 2.4.0
+
 - [feat] 移除 .template 的设计
 - [refactor] screentshot/homepage 两个字段的生成逻辑优化，截图功能提供单独的 CLI 工具 @ice/screenshot
 - [refactor] utils 相关代码优化
