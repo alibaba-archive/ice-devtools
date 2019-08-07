@@ -17,7 +17,8 @@
     "_stylelintignore",
     "_stylelintrc.js",
     "ice.config.js",
-    "screenshot.png"
+    "screenshot.png",
+    "jsconfig.json"
   ],
   "scripts": {
     "start": "ice-scripts dev",
@@ -52,9 +53,5 @@
     "name": "<%= npmName %>",
     "title": "<%= title %>",
     "category": "<%= category %>"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alibaba/ice"
   }
 }

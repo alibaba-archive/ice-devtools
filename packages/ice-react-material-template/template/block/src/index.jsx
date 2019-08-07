@@ -5,7 +5,7 @@ import styles from './index.module.css';
 
 export default function <%= className %>({ value }) {
   return (
-    <div className={styles['<%= name %>']}>
+    <div className={styles.<%= className %>}>
       <%= name %> {value}
     </div>
   );
