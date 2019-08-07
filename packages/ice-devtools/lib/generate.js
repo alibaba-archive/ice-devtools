@@ -184,7 +184,7 @@ function generateMaterialsData(files, targetDir, type) {
 
   // 并行从 npm 查询包信息并补全数据
   // 实际并行数是 concurrency * 3（block+component+scaffold）
-  const concurrency = 10;
+  const concurrency = Number(process.env.CONCURRENCY) || 20;
   logger.info(`通过 npm 查询 ${type} 信息开始，个数：${result.length}，并行个数：${concurrency}`);
 
   // 根据 npm 信息补全物料数据：publishTime, updateTime
