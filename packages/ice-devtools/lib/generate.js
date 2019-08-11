@@ -4,7 +4,7 @@ const path = require('path');
 const glob = require('glob');
 const mkdirp = require('mkdirp');
 const BluebirdPromise = require('bluebird');
-const getUnpkgHost = require('ice-npm-utils').getUnpkgHost;
+const { getUnpkgHost, getNpmRegistry } = require('ice-npm-utils');
 
 const generateI18nData = require('../utils/i18n');
 const validate = require('../utils/validate');
@@ -143,8 +143,9 @@ function generateMaterialsData(files, targetDir, type) {
       || (hasScreenshot(path.dirname(pkgPath)) ? `${unpkgHost}/${pkg.name}@${pkg.version}/screenshot.png` : '');
 
     const registry =
-      (pkg.publishConfig && pkg.publishConfig.registry) ||
-      DEFAULT_REGISTRY;
+      (pkg.publishConfig && pkg.publishConfig.registry)
+      || getNpmRegistry()
+      || DEFAULT_REGISTRY;
 
     // generate i18n data
     const i18nData = generateI18nData({ title: materialConfig.title, description: pkg.description });
