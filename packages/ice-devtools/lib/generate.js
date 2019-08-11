@@ -135,16 +135,18 @@ function generateMaterialsData(files, targetDir, type) {
     const pkg = JSON.parse(fs.readFileSync(path.join(targetDir, pkgPath)));
 
     const materialConfig = pkg[`${type}Config`] || {};
-    const unpkgHost = getUnpkgHost(pkg.name);
+    const npmName = pkg.name;
+    const unpkgHost = getUnpkgHost(npmName);
+
 
     // 兼容 snapshot 字段
     const screenshot = materialConfig.screenshot
       || materialConfig.snapshot
-      || (hasScreenshot(path.dirname(pkgPath)) ? `${unpkgHost}/${pkg.name}@${pkg.version}/screenshot.png` : '');
+      || (hasScreenshot(path.dirname(pkgPath)) ? `${unpkgHost}/${npmName}@${pkg.version}/screenshot.png` : '');
 
     const registry =
       (pkg.publishConfig && pkg.publishConfig.registry)
-      || getNpmRegistry()
+      || getNpmRegistry(npmName)
       || DEFAULT_REGISTRY;
 
     // generate i18n data
@@ -155,14 +157,14 @@ function generateMaterialsData(files, targetDir, type) {
       name: materialConfig.name,
       title: i18nData['zh-CN'].title || i18nData['en-US'].title,
       description: i18nData['zh-CN'].description || i18nData['en-US'].description,
-      homepage: pkg.homepage || `${unpkgHost}/${pkg.name}@${pkg.version}/build/index.html`,
+      homepage: pkg.homepage || `${unpkgHost}/${npmName}@${pkg.version}/build/index.html`,
       // TODO: 老物料展示依赖 categories，下个版本删除
       categories: materialConfig.categories || [],
       category: materialConfig.category,
       repository: (pkg.repository && pkg.repository.url) || pkg.repository,
       source: {
         type: 'npm',
-        npm: pkg.name,
+        npm: npmName,
         version: pkg.version,
         registry,
         author: pkg.author,
