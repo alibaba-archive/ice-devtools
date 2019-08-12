@@ -100,8 +100,7 @@ async function generateExample(cwd, templatePath, materialConfig) {
   // [block, component, scaffold]
   const types = MATERIAL_TYPES.filter((type) => {
     try {
-      fs.statSync(path.join(templatePath, type)).isDirectory();
-      return true;
+      return fs.statSync(path.join(templatePath, type)).isDirectory();
     } catch (error) {
       // block maybe not exist in template
       logger.warn(error.message);
