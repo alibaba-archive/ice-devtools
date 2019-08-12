@@ -48,15 +48,21 @@ function render(options, done) {
   const metalsmith = Metalsmith(src);
   metalsmith.frontmatter(false);
 
+  const realNpmName = kebabCase(npmName || name).replace(/^-/, '');
   const data = Object.assign(metalsmith.metadata(), {
     name: kebabCase(name).replace(/^-/, ''),
-    npmName: kebabCase(npmName || name).replace(/^-/, ''),
+    npmName: realNpmName,
     className: uppercamelcase(name),
     inPlace: dest === process.cwd(),
     noEscape: true,
     registry: getNpmRegistry(npmName || name),
     categories: {}, // TODO: 已废弃，使用 category，下版本移除
     category: '',
+    // for rax
+    projectName: realNpmName,
+    projectAuthor: 'rax',
+    projectTargets: ['web'],
+    projectFeatures: [],
     ...opts,
   });
   logger.verbose('Metalsmith render options', data);
