@@ -98,7 +98,15 @@ async function generateExample(cwd, templatePath, materialConfig) {
   const pkg = pkgJSON.getPkgJSON(cwd);
 
   // [block, component, scaffold]
-  const types = MATERIAL_TYPES.filter((type) => fs.statSync(path.join(templatePath, type)).isDirectory());
+  const types = MATERIAL_TYPES.filter((type) => {
+    try {
+      return fs.statSync(path.join(templatePath, type)).isDirectory();
+    } catch (error) {
+      // block maybe not exist in template
+      logger.warn(error.message);
+      return false;
+    }
+  });
 
   for (let i = 0; i < types.length; i++) {
     const type = types[i];
@@ -113,7 +121,7 @@ async function generateExample(cwd, templatePath, materialConfig) {
       description: '示例',
       skipGitIgnore: true,
       materialConfig,
-      transformRegexp: /_package.json/, // only transfrom _package.json
+      transformRegexp: /_package.json/,
     };
 
     logger.verbose(`generateExample -> ${type}`, options);

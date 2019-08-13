@@ -4,7 +4,7 @@ const path = require('path');
 const glob = require('glob');
 const mkdirp = require('mkdirp');
 const BluebirdPromise = require('bluebird');
-const getUnpkgHost = require('ice-npm-utils').getUnpkgHost;
+const { getUnpkgHost, getNpmRegistry } = require('ice-npm-utils');
 
 const generateI18nData = require('../utils/i18n');
 const validate = require('../utils/validate');
@@ -135,16 +135,19 @@ function generateMaterialsData(files, targetDir, type) {
     const pkg = JSON.parse(fs.readFileSync(path.join(targetDir, pkgPath)));
 
     const materialConfig = pkg[`${type}Config`] || {};
-    const unpkgHost = getUnpkgHost(pkg.name);
+    const npmName = pkg.name;
+    const unpkgHost = getUnpkgHost(npmName);
+
 
     // 兼容 snapshot 字段
     const screenshot = materialConfig.screenshot
       || materialConfig.snapshot
-      || (hasScreenshot(path.dirname(pkgPath)) ? `${unpkgHost}/${pkg.name}@${pkg.version}/screenshot.png` : '');
+      || (hasScreenshot(path.dirname(pkgPath)) ? `${unpkgHost}/${npmName}@${pkg.version}/screenshot.png` : '');
 
     const registry =
-      (pkg.publishConfig && pkg.publishConfig.registry) ||
-      DEFAULT_REGISTRY;
+      (pkg.publishConfig && pkg.publishConfig.registry)
+      || getNpmRegistry(npmName)
+      || DEFAULT_REGISTRY;
 
     // generate i18n data
     const i18nData = generateI18nData({ title: materialConfig.title, description: pkg.description });
@@ -154,14 +157,14 @@ function generateMaterialsData(files, targetDir, type) {
       name: materialConfig.name,
       title: i18nData['zh-CN'].title || i18nData['en-US'].title,
       description: i18nData['zh-CN'].description || i18nData['en-US'].description,
-      homepage: pkg.homepage || `${unpkgHost}/${pkg.name}@${pkg.version}/build/index.html`,
+      homepage: pkg.homepage || `${unpkgHost}/${npmName}@${pkg.version}/build/index.html`,
       // TODO: 老物料展示依赖 categories，下个版本删除
       categories: materialConfig.categories || [],
       category: materialConfig.category,
       repository: (pkg.repository && pkg.repository.url) || pkg.repository,
       source: {
         type: 'npm',
-        npm: pkg.name,
+        npm: npmName,
         version: pkg.version,
         registry,
         author: pkg.author,
@@ -184,7 +187,7 @@ function generateMaterialsData(files, targetDir, type) {
 
   // 并行从 npm 查询包信息并补全数据
   // 实际并行数是 concurrency * 3（block+component+scaffold）
-  const concurrency = 20;
+  const concurrency = Number(process.env.CONCURRENCY) || 20;
   logger.info(`通过 npm 查询 ${type} 信息开始，个数：${result.length}，并行个数：${concurrency}`);
 
   // 根据 npm 信息补全物料数据：publishTime, updateTime

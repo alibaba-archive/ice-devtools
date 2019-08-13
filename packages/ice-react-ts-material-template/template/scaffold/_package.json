@@ -39,6 +39,7 @@
   "devDependencies": {
     "@ice/screenshot": "^0.1.1",
     "@ice/spec": "^0.1.1",
+    "css-modules-typescript-loader": "^2.0.4",
     "eslint": "^6.0.1",
     "stylelint": "^10.1.0",
     "ice-plugin-fusion": "^0.1.4",

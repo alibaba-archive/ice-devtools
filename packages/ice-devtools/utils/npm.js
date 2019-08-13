@@ -1,7 +1,7 @@
 const kebabCase = require('kebab-case');
 const chalk = require('chalk');
-const spawn = require('cross-spawn');
-const { getNpmInfo, isAliNpm } = require('ice-npm-utils');
+const { isAliNpm } = require('ice-npm-utils');
+const request = require('request-promise-native');
 
 /**
  * 获取 npm 包名
@@ -21,8 +21,20 @@ function generateNpmNameByPrefix(name, npmPrefix) {
  *         [code, resute]
  */
 function getNpmTime(npm, version = 'latest') {
-  return getNpmInfo(npm)
-    .then((data) => {
+  // 这里不使用 ice-npm-utils 里的 getNpmRegistry 原因：
+  // 发布到私有 npm，走 env 自定义逻辑；发布到官方 npm，走官方源的逻辑
+  // getNpmRegistry 默认是淘宝源，同步官方源有延迟，因此不能用
+  let registry = 'https://registry.npmjs.org';
+  if (process.env.REGISTRY) {
+    registry = process.env.REGISTRY;
+  } else if (isAliNpm(npm)) {
+    registry = 'https://registry.npm.alibaba-inc.com';
+  }
+  const url = `${registry}/${npm}`;
+
+  return request.get(url)
+    .then((response) => {
+      const data = JSON.parse(response);
       if (!data.time) {
         console.error(chalk.red('time 字段不存在'));
         return Promise.reject(new Error(`${npm}@${version} time 字段不存在`));
@@ -40,6 +52,7 @@ function getNpmTime(npm, version = 'latest') {
       if (
         (err.response && err.response.status === 404)
         || err.message === 'Not found' // tnpm
+        || /not found/i.test(err.message) // tnpm
         || err.message === 'not_found' // npm
       ) {
         // 这种情况是该 npm 包名一次都没有发布过
@@ -50,40 +63,7 @@ function getNpmTime(npm, version = 'latest') {
     });
 }
 
-/**
- * get NPM registry
- *
- * @returns {string} npm registry url
- */
-function getNpmRegistry(npmName) {
-  // return REGISTRY env variable
-  if (process.env.REGISTRY) return process.env.REGISTRY;
-
-  // return tnpm if is a interior npm
-  if (isAliNpm(npmName)) return 'https://registry.npm.alibaba-inc.com';
-
-  // get registry through npm config
-  let npmRegistry = spawn.sync('npm', ['config', 'get', 'registry'], { stdio: ['ignore', 'pipe', 'pipe'] });
-  npmRegistry = npmRegistry.stdout.toString().replace(/\/+(\n?)$/, '');
-
-  // return registry
-  if (isVaildRegistry(npmRegistry)) return npmRegistry;
-
-  // default
-  return 'https://registry.npmjs.com';
-}
-
-/**
- * verify a registry URL
- *
- * @param {string} url
- */
-function isVaildRegistry(url) {
-  return /^(https?):\/\/.+$/.test(url);
-}
-
 module.exports = {
   generateNpmNameByPrefix,
   getNpmTime,
-  getNpmRegistry,
 };

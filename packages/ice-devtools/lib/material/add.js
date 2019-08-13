@@ -18,6 +18,7 @@ module.exports = async function addMaterial(cwd, opts = {}) {
     templatePath: src,
     standalone,
     materialConfig,
+    // init single material
     initMaterial,
   } = opts;
 
@@ -41,7 +42,7 @@ module.exports = async function addMaterial(cwd, opts = {}) {
     dest,
     npmName,
     materialConfig,
-    transformRegexp: initMaterial ? /.+/ : /_package.json/,
+    transformRegexp: initMaterial ? /.+/ : /_package.json/, // only transfrom _package.json
     skipGitIgnore: !standalone, // 物料仓库中，不处理 _gitignore 文件
   });
 

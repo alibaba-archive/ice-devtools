@@ -35,7 +35,7 @@
     "react": "^16.3.0"
   },
   "componentConfig": {
-    "name": "<%= name %>",
+    "name": "<%= npmName %>",
     "title": "<%= title %>",
     "category": "<%= category %>"
   }
