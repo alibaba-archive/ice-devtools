@@ -2,6 +2,13 @@
 
 ## 2.5.0
 
+- [feat] 支持 react + ts 模板，移除 angular 模板
+- [feat] 支持 rax 模板，模板渲染支持 index.js.ejs
+- [feat] 支持通过环境变量自定义并发个数
+- [fix] 修复包未发布的判断逻辑
+- [fix] 生成物料数据时 source.registry 兼容 env
+- [fix] 优化 npm 未发布时的错误信息 alibaba/ice#2631
+
 ## 2.4.2
 
 - [fix] 修复 idev 初始化出来的组件模板 package.json 中 componentConfig 中的 name 和 adaptor 中的 name 不一致的 bug
