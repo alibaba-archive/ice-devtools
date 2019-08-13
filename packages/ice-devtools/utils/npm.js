@@ -52,7 +52,7 @@ function getNpmTime(npm, version = 'latest') {
       if (
         (err.response && err.response.status === 404)
         || err.message === 'Not found' // tnpm
-        || /not found/.test(err.message) // tnpm
+        || /not found/i.test(err.message) // tnpm
         || err.message === 'not_found' // npm
       ) {
         // 这种情况是该 npm 包名一次都没有发布过
