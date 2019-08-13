@@ -11,7 +11,12 @@
     "lib": ["es6", "dom"],
     "sourceMap": true, // 生成相应的 '.map' 文件
     "allowJs": true, // 扩展名可以是 .js/.jsx
-    "noUnusedLocals": true // 有未使用的变量时，抛出错误
+    "noUnusedLocals": true, // 有未使用的变量时，抛出错误
+    "rootDir": "src",
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true
   },
   "include": ["src/*.ts", "src/*.tsx"], // 需要编译的文件目录
   "exclude": ["node_modules", "build", "public"] // 排除编译的文件目录
