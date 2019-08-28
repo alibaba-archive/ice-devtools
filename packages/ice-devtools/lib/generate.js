@@ -151,6 +151,8 @@ function generateMaterialsData(files, targetDir, type) {
 
     // generate i18n data
     const i18nData = generateI18nData({ title: materialConfig.title, description: pkg.description });
+    // TODO: 老物料展示依赖 categories，下个版本删除
+    const categories = materialConfig.categories || (materialConfig.category ? [materialConfig.category] : []);
 
     // details: ../utils/validate.js
     const payload = {
@@ -158,8 +160,7 @@ function generateMaterialsData(files, targetDir, type) {
       title: i18nData['zh-CN'].title || i18nData['en-US'].title,
       description: i18nData['zh-CN'].description || i18nData['en-US'].description,
       homepage: pkg.homepage || `${unpkgHost}/${npmName}@${pkg.version}/build/index.html`,
-      // TODO: 老物料展示依赖 categories，下个版本删除
-      categories: materialConfig.categories || [],
+      categories,
       category: materialConfig.category,
       repository: (pkg.repository && pkg.repository.url) || pkg.repository,
       source: {
