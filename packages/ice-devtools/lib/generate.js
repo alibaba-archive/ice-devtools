@@ -151,8 +151,12 @@ function generateMaterialsData(files, targetDir, type) {
 
     // generate i18n data
     const i18nData = generateI18nData({ title: materialConfig.title, description: pkg.description });
-    // TODO: 老物料展示依赖 categories，下个版本删除
-    const categories = materialConfig.categories || (materialConfig.category ? [materialConfig.category] : []);
+
+    const {categories: originCategories, category: originCategory} = materialConfig;
+    // categories 字段：即将废弃，但是展示端还依赖该字段，因此短期内不能删除，同时需要兼容新的物料无 categories 字段
+    const categories = originCategories || (originCategory ? [originCategory] : []);
+    // category 字段：兼容老的物料无 category 字段
+    const category = originCategory || ((originCategories && originCategories[0]) ? originCategories[0] : '');
 
     // details: ../utils/validate.js
     const payload = {
@@ -161,7 +165,7 @@ function generateMaterialsData(files, targetDir, type) {
       description: i18nData['zh-CN'].description || i18nData['en-US'].description,
       homepage: pkg.homepage || `${unpkgHost}/${npmName}@${pkg.version}/build/index.html`,
       categories,
-      category: materialConfig.category,
+      category,
       repository: (pkg.repository && pkg.repository.url) || pkg.repository,
       source: {
         type: 'npm',
