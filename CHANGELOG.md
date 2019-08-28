@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.5.1
+
 ## 2.5.0
 
 - [feat] 支持 react + ts 模板，移除 angular 模板
