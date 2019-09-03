@@ -1,0 +1,24 @@
+{
+  "styleProps": {
+    "title": {
+      "guiType": "group",
+      "handler": "updateAxis", // 啥意思
+      "description": "图表标题",
+      "valueType": "object",
+      "fields": {
+        "text": {
+
+        }
+      }
+    }
+  },
+  "dataProps": {
+
+  },
+  "events": {
+
+  },
+  "handlers": {
+
+  }
+}
