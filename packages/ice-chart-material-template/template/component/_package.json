@@ -11,7 +11,9 @@
   "stylePath": "style.js",
   "scripts": {
     "start": "ice-scripts dev",
-    "build": "ice-scripts build",
+    "start:gui": "ice-chart-develop-cli start",
+    "doc": "ice-chart-develop-cli doc",
+    "build": "ice-scripts build && ice-chart-develop-cli build && npm run doc",
     "prepublishOnly": "npm run build && ice-chart-develop-cli check"
   },
   "license": "MIT",
