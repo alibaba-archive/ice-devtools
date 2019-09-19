@@ -11,6 +11,7 @@
   "stylePath": "style.js",
   "scripts": {
     "start": "ice-scripts dev",
+    "test": "ice-scripts test",
     "build": "ice-scripts build",
     "prepublishOnly": "npm run build"
   },
@@ -29,7 +30,9 @@
     "ice-plugin-fusion": "^0.1.4",
     "ice-scripts": "^2.0.0",
     "react": "^16.3.0",
-    "react-dom": "^16.3.0"
+    "react-dom": "^16.3.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0"
   },
   "peerDependencies": {
     "react": "^16.3.0"
