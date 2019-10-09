@@ -9,5 +9,6 @@ yarn.lock
 yarn-error.log
 coverage/
 .vscode/
+.idea/
 
 .eslintcache
