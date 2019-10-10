@@ -1,3 +1,11 @@
+
+## ice-devtools 相关能力迁移至 iceworks CLI，ice-devtools 将逐步下线，相关代码：
+
+- [iceworks CLI](https://github.com/alibaba/ice/tree/master/tools/iceworks-cli)
+- [templates](https://github.com/alibaba/ice/tree/master/packages)
+
+--------
+
 # ice-devtools
 
 Devtools for develop materials such as scaffold, block and component. [Docs](https://ice.work/docs/materials/about)
