@@ -73,10 +73,6 @@ function exec() {
   });
 }
 
-function welcome() {
-  boxenLog(`${chalk.green('Welcome to use ice-devtools')}`);
-}
-
 /**
  * check node version
  * @param {string} wanted
