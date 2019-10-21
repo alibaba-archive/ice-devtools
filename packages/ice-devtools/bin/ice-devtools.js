@@ -8,7 +8,6 @@ const packageJson = require('../package.json');
 const COMMANDS = require('../config/commands');
 const optionsAttachToEnv = require('../utils/options-attach-to-env');
 const goldlog = require('../utils/goldlog');
-const boxenLog = require('../utils/boxen-log');
 
 // 统计用户版本
 goldlog('version', {
