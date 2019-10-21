@@ -1,5 +1,9 @@
 # Changelog
 
+# 2.5.2
+
+- [chore] add deprecated message
+
 ## 2.5.1
 
 - [fix] 兼容 category 与 categories 字段

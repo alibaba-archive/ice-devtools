@@ -8,8 +8,6 @@ const packageJson = require('../package.json');
 const COMMANDS = require('../config/commands');
 const optionsAttachToEnv = require('../utils/options-attach-to-env');
 const goldlog = require('../utils/goldlog');
-const boxenLog = require('../utils/boxen-log');
-
 
 // 统计用户版本
 goldlog('version', {
@@ -26,7 +24,11 @@ exec();
 function exec() {
   const cwd = process.cwd();
 
-  welcome();
+  console.log(chalk.red(`
+    为了降低开发者认知成本，我们已统一通过 iceworks CLI 支持项目&物料开发能力，ice-devtools 已停止维护！
+    从 ice-devtools 迁移到 iceworks 成本很低，请择期迁移：https://www.yuque.com/ice-team/wiki/pd4gfs
+  `));
+
   const requiredVersion = packageJson.engines.node;
   checkNodeVersion(requiredVersion, packageJson.name);
 
@@ -68,10 +70,6 @@ function exec() {
     console.log(`  ${chalk.red(`Unknown command ${chalk.yellow(cmd)}.`)}`);
     console.log();
   });
-}
-
-function welcome() {
-  boxenLog(`${chalk.green('Welcome to use ice-devtools')}`);
 }
 
 /**
